@@ -1,4 +1,4 @@
-$project = "HG.Raspberry.System"
+$project = "Raspberry.System"
 $root = (split-path -parent $MyInvocation.MyCommand.Definition) + '\..'
 
 $versionStr = "{0}" -f ($env:APPVEYOR_REPO_TAG_NAME)
