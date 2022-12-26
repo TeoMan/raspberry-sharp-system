@@ -151,7 +151,7 @@ namespace Raspberry.Timers
                     return;
 
                 if (thread != Thread.CurrentThread)
-                    thread.Abort();
+                    thread.Interrupt();
                 thread = null;
             }
         }
