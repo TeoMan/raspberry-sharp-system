@@ -6,7 +6,7 @@ before_build:
 build:
   project: .\RaspberrySharp.System.sln
   verbosity: minimal
-after_test:
+after_build:
   - ps: .\Raspberry.System\nuget_pack.ps1
 artifacts:
   - path: '*.nupkg'
