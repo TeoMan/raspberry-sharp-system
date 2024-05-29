@@ -202,6 +202,22 @@ namespace Raspberry
                     else
                         suffix = "";
                 }
+                string hardware;
+                if (!settings.TryGetValue("Hardware", out hardware))
+                {
+                    string[] compatible = File.ReadAllLines("/proc/device-tree/compatible");
+                    if (compatible.Length >= 0)
+                    {
+                        // Tipically returns: "raspberrypi,4-model-b\0brcm,bcm2711\0"
+                        string[] sets = compatible[0].Split('\0');
+                        foreach(string s in sets)
+                        {
+                            int i = s.IndexOf("brcm,");
+                            if (i >= 0)
+                                settings.Add("Hardware", s.Substring(i + 5));
+                        }
+                    }
+                }
 
                 return new Board(settings);
             }
@@ -258,6 +274,7 @@ namespace Raspberry
                 case 0x03111:
                 case 0x03112:
                 case 0x03114:
+                case 0x03115:
                     return Model.Pi4;
 
                 default:
